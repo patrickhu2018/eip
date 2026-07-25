@@ -1,0 +1,569 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage2.master.cs" Inherits="MasterPage2" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <title>修繕管理系統</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/SmartEMCStyle.css" rel="stylesheet" type="text/css">
+    <link href="css/SmartEMCStyle_2.css?20250408v1" rel="stylesheet" type="text/css">
+    <link href="css/simple-sidebar.css" rel="stylesheet" type="text/css">
+    <link href="css/SwebStyle.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+        /*日歷*/
+        .user_text {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border-radius: 14px;
+            opacity: 0.6;
+            padding: 5px 20px;
+            font-size: 1.1rem;
+        }
+
+        input[type="date"],
+        input[type="datetime-local"],
+        input[type="month"] {
+            position: relative;
+            background: transparent;
+            cursor: not-allowed; /* 显示禁用光标 */
+        }
+
+            input[type="date"]::before,
+            input[type="datetime-local"]::before,
+            input[type="month"]::before {
+                content: '';
+                position: absolute;
+                right: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-image: url('image/icon_14.png'); /* 使用你上传的图片 */
+                background-size: contain;
+                background-repeat: no-repeat;
+                width: 30px; /* 根据图片大小调整 */
+                height: 30px;
+                pointer-events: none; /* 禁用鼠标事件 */
+            }
+
+
+            input[type="date"]:disabled::-webkit-calendar-picker-indicator,
+            input[type="datetime-local"]:disabled::-webkit-calendar-picker-indicator,
+            input[type="month"]:disabled::-webkit-calendar-picker-indicator {
+                opacity: 0; /* 隐藏默认按钮 */
+                pointer-events: none; /* 禁用鼠标事件 */
+            }
+
+            input[type="date"]:enabled::-webkit-calendar-picker-indicator,
+            input[type="datetime-local"]:enabled::-webkit-calendar-picker-indicator,
+            input[type="month"]:enabled::-webkit-calendar-picker-indicator {
+                background: none; /* 移除背景图 */
+                color: transparent;
+            }
+
+            input[type="date"]:enabled,
+            input[type="datetime-local"]:enabled,
+            input[type="month"]:enabled {
+                cursor: auto;
+            }
+
+
+        /*日歷*/
+
+
+        .table th, .table td {
+            padding: 0.2rem 0.3rem;
+        }
+
+        .form-control {
+            /*  height: 35px;*/
+        }
+
+        .add_div {
+            padding-left: 120px !important;
+            padding-right: 120px !important;
+        }
+
+        .unrezie {
+            resize: none;
+        }
+
+        .category_div {
+            position: absolute;
+            z-index: 99;
+            display: none;
+            top: -430%;
+            left: 35%;
+            border-radius: 5px;
+        }
+        /*新版CSS for ISMS*/
+        .menuIcon_smail {
+            background-size: 12%;
+        }
+
+        .menuIcon01 {
+            background-image: url("../image/icon_6.png");
+        }
+
+            .menuIcon01:hover {
+                background-image: url("../image/icon_6_w.png");
+            }
+
+            .menuIcon01.active {
+                background-image: url("../image/icon_6_w.png");
+            }
+
+        .menuIcon02 {
+            background-image: url(../image/icon_7.png);
+            background-size: 12%;
+        }
+
+            .menuIcon02:hover {
+                background-image: url("../image/icon_7_w.png");
+            }
+
+            .menuIcon02.active {
+                background-image: url("../image/icon_7_w.png");
+            }
+
+        .menuIcon03 {
+            background-image: url(../image/icon_7.png);
+        }
+
+            .menuIcon03:hover {
+                background-image: url("../image/icon_7_w.png");
+            }
+
+            .menuIcon03.active {
+                background-image: url("../image/icon_7_w.png");
+            }
+
+        .menuIcon04 {
+            background-image: url(../image/icon_11.png);
+        }
+
+            .menuIcon04 > a {
+                color: #464646 !important;
+            }
+
+            .menuIcon04:hover {
+                background-image: url("../image/icon_12.png");
+                background-color: rgba(255, 255, 255, 0) !important;
+            }
+
+                .menuIcon04:hover > a {
+                    color: #000 !important;
+                }
+
+            .menuIcon04.active {
+                background-image: url("../image/icon_12.png");
+                background-color: rgba(255, 255, 255, 0) !important;
+            }
+
+                .menuIcon04.active > a {
+                    color: #000 !important;
+                }
+
+
+        .menuIcon05 {
+            background-image: url(../image/icon_11.png);
+        }
+
+            .menuIcon05 > a {
+                color: #464646 !important;
+            }
+
+            .menuIcon05:hover {
+                background-image: url("../image/icon_12.png");
+                background-color: rgba(255, 255, 255, 0) !important;
+            }
+
+                .menuIcon05:hover > a {
+                    color: #000 !important;
+                }
+
+            .menuIcon05.active {
+                background-image: url("../image/icon_12.png");
+                background-color: rgba(255, 255, 255, 0) !important;
+            }
+
+                .menuIcon05.active > a {
+                    color: #000 !important;
+                }
+
+        .menuIcon06 {
+            background-image: url(../image/icon_3.png);
+        }
+
+            .menuIcon06:hover {
+                background-image: url("../image/icon_3_w.png");
+            }
+
+            .menuIcon06.active {
+                background-image: url("../image/icon_3_w.png");
+            }
+
+        .menuIcon07 {
+            background-image: url(../image/icon_4.png);
+        }
+
+            .menuIcon07:hover {
+                background-image: url("../image/icon_4_w.png");
+            }
+
+            .menuIcon07.active {
+                background-image: url("../image/icon_4_w.png");
+            }
+
+        .menuIcon08 {
+            background-image: url(../image/icon_5.png);
+        }
+
+            .menuIcon08:hover {
+                background-image: url("../image/icon_5_w.png");
+            }
+
+            .menuIcon08.active {
+                background-image: url("../image/icon_5_w.png");
+            }
+
+        .menuIcon09 {
+            background-image: url(../image/icon_2.png);
+        }
+
+            .menuIcon09:hover {
+                background-image: url("../image/icon_2_w.png");
+            }
+
+            .menuIcon09.active {
+                background-image: url("../image/icon_2_w.png");
+            }
+
+        .sidebar-nav li {
+            border-top-left-radius: 10px; /* 左上角 */
+            border-bottom-left-radius: 10px; /* 左下角 */
+            align-self: center;
+        }
+        /*條版*/
+        .form-control:disabled, .form-control[readonly] {
+            background-color: #ECECEC;
+        }
+
+        .form-control {
+            border: 1px solid #707070;
+            color: #000000;
+        }
+
+        .custom-icon {
+            position: relative;
+            display: inline-block;
+            width: 15px; /* 根据需要调整宽度 */
+            height: 15px; /* 根据需要调整高度 */
+            background-image: url('image/home.png');
+            background-size: cover; /* 确保背景图片覆盖整个图标 */
+            background-repeat: no-repeat; /* 禁止重复 */
+            top: 10%;
+        }
+
+        .AllPage {
+            background: linear-gradient(to right bottom, #DBA900 21%, #F2C222 14%);
+        }
+
+
+        .write_Box {
+            border-radius: 15px;
+        }
+
+        .gw_bt {
+            width: auto;
+            height: 28px;
+            background: #68B100;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            color: #ffffff;
+            opacity: 1;
+            margin-top: 1.5px;
+            margin-bottom: 1.5px;
+        }
+
+        .grid-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+            .grid-text:hover {
+                display: block;
+            }
+
+
+        select {
+            height: 35px !important;
+        }
+
+        .TitleFrame {
+            display: flex;
+            align-items: center;
+        }
+
+        .subTitleMarkText {
+            font-size: 0.875rem;
+            color: #707070
+        }
+
+        .noticeText {
+            color: #FF0000;
+        }
+
+        .leftDistance {
+            margin-left: 20px;
+        }
+
+        /*for 使用者切換*/
+        .m0_1024_modal-content
+        {
+            margin: 0 200px;
+        }
+
+        .bt {
+            padding: 10px 30px;
+            background: #4CAF1E 0% 0% no-repeat padding-box;
+            border: 0px;
+            border-radius: 5px;
+            opacity: 1;
+            text-align: center;
+            color: #FFFFFF;
+            margin-right: 10px;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .m0_1024_modal-content
+            {
+                margin: 0 !important;
+            }
+        }
+        /*for 使用者切換*/
+    </style>
+    <script>
+        $(document).ready(function () {
+            var pageContentWrapper = document.getElementById('page-content-wrapper');
+            var isSidebarClosed = localStorage.getItem('isSidebarClosed');
+            var trigger = $('.hamburger'),
+                overlay = $('.overlay'),
+                isClosed = false;
+
+            console.log(isSidebarClosed);
+            console.log($('#open'));  // 確認 #open 是否能被選中
+
+            //if (isSidebarClosed === "true") {
+            //    setTimeout(function () {
+            //        $('#open').click();  // 延遲 100 毫秒
+            //    }, 100);
+            //} 
+
+            trigger.click(function () {
+                hamburger_cross();
+            });
+
+            function hamburger_cross() {
+                if (isClosed == true) {
+                    overlay.hide();
+                    trigger.removeClass('is-closed');
+                    trigger.addClass('is-open');
+                    isClosed = false;
+                    //pageContentWrapper.style.paddingLeft = '0px';
+                    //pageContentWrapper.style.marginLeft = '0px';
+                    //pageContentWrapper.style.width = '1660px';
+                    localStorage.setItem('isSidebarClosed', 'false');
+                    console.log(localStorage);
+                } else {
+                    overlay.show();
+                    trigger.removeClass('is-open');
+                    trigger.addClass('is-closed');
+                    isClosed = true;
+                    //pageContentWrapper.style.paddingLeft = '0px';
+                    //pageContentWrapper.style.marginLeft = '80px';
+                    ////pageContentWrapper.style.width = '1840px';
+                    localStorage.setItem('isSidebarClosed', 'true');
+                    console.log(localStorage);
+                }
+            }
+
+            $('#open').click(function () {
+                $('#wrapper').toggleClass('toggled');
+                $('#sidebar-wrapper').toggleClass('sidebarWidth');
+            });
+
+            $("#case_setting_btn").click(function () {
+                $("#case_setting_btn").addClass("setting_btn_click");
+                $("#case_view_btn").removeClass("setting_btn_click");
+            });
+
+            $("#case_view_btn").click(function () {
+                $("#case_view_btn").addClass("setting_btn_click");
+                $("#case_setting_btn").removeClass("setting_btn_click");
+            });
+
+        });
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="AllPage" id="test" runat="server">    
+    <form runat="server">
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
+        <div class="header" id="header">
+            <div class="topMenu">
+                <!-- LOGO -->
+                <div class="menulogo mr-md-auto ">
+                    <a class="LOGO font-bold" href="#" tabindex="" runat="server" id="homepic">
+                        <img src="image/long_1_R.png" alt="智慧環評監督管制雲LOGO">
+                        <span style="display: none">LOGO</span>
+                    </a>
+                </div>
+                <!-- menulogo -->
+                <!-- 選單按鈕 -->
+                <div class="menuBallClass ml-md-auto" style="align-items: center; z-index: 0">
+                    <asp:Button runat="server" ID="change_role_btn" CssClass="bt" Text="切換使用者" style="width:auto;" OnClick="Change_role_Click"/><%--20250827 louis 新增切換使用者功能--%>
+                    <asp:Label runat="server" ID="user" CssClass="user_text"></asp:Label>
+                    <a runat="server" class="menuBall" id="home" title="">
+                        <img src="image/bighome.png" alt="首頁"></a>
+                    <a runat="server" class="menuBall" id="Instructions" title="" target="_blank" href="file/20250317_操作手冊(一般使用者)_修繕.pdf">
+                        <img src="image/icon_Instructions.png" alt="操作手冊"></a>
+                    <a runat="server" class="menuBall" id="video" title="" href="https://youtu.be/xmNfv0wh26E">
+                        <img src="image/icon_video.png" alt="操作影片"></a>
+                    <a class="menuBall" href="Login.aspx" title="">
+                        <img src="image/logout.png" alt="登出"></a>
+                </div>
+            </div>
+            <!-- topMenu -->
+        </div>
+        <!-- header -->
+        <div id="wrapper" class="toggled">
+            <div class="overlay"></div>
+
+            <!-- Sidebar -->
+            <nav class="navbar navbar-inverse fixed-top sidebarWidth" id="sidebar-wrapper" role="navigation">
+                <ul class="nav sidebar-nav">
+                    <div class="sidebar-header">
+                        <div></div>
+                        <%--class="sidebar-brand"--%>
+                    </div>
+                    <asp:Literal runat="server" ID="left_link"></asp:Literal>
+                    <div class="sidebar-header" style="position: unset; padding: 20%; background: unset">
+                        <div class="sidebar-brand" style="background: unset"></div>
+                        <%----%>
+                    </div>
+                </ul>
+
+            </nav>
+            <!-- /#sidebar-wrapper -->
+            <div id="page-content-wrapper">
+                <button id="open" type="button" class="hamburger sideMenu animated fadeInLeft is-open" data-toggle="offcanvas">
+                    <i class="fa fa-caret-right" aria-hidden="true" style="left: 23%; top: 39%; position: absolute;"></i>
+                </button>
+                <div class="whiteboard">
+                    <div class="whiteHeader">
+                        <div class="PageTitle">
+                            <asp:Label runat="server" ID="page_title" Style="font-weight: bold">環境監測資料上傳</asp:Label><asp:Label runat="server" ID="page_title_comment" CssClass="ml-2" Style="color: #8A8A8A; font-size: 15px; display: none;"></asp:Label></>
+                        </div>
+                        <ul class="breadcrumb float-md-right">
+                            <li><a id="home_link" runat="server" href="#"><i class="custom-icon" aria-hidden="true"></i>首頁</a></li>
+                            <asp:Literal runat="server" ID="link_li" ClientIDMode="Static"></asp:Literal>
+                        </ul>
+
+                        <asp:Panel runat="server" ID="Account_btn" Style="height: 52px;" Visible="false"></asp:Panel>
+                    </div>
+                    <!-- whiteHeader-->
+
+                    <div class="whiteContent" style="overflow-x: hidden;" id="mainContent">
+                        <div class="container">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+                        </div>
+                        <!-- container-->
+                    </div>
+                    <!-- whiteContent-->
+                </div>
+
+
+
+                <div class="footer">
+                    <span class="footer-text">最佳螢幕解析度為1920X1080</span>
+                    <span class="footer-text">本網站為 中部科學園區管理局 版權所有 Copyright© 2024 由方達科技股份有限公司開發維護</span>
+                </div>
+            </div>
+
+
+            <asp:HiddenField runat="server" ID="link_hf" Value="1" />
+
+            <%-- 切換使用者MODAL start--%>
+            <div class="modal fade" id="exampleModalCenter_role" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="backdrop-filter: brightness(0.3);" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 5px; justify-content: center; max-width: 50%;">
+                    <div id="Div11" runat="server" class="modal-content m0_1024_modal-content">
+                        <div class="modal-header write_Title" style="background-color: #C5ECFF; display: flex; justify-content: center;">
+                            <h5 class="modal-title" runat="server" id="H2" style="font-size: 1.375rem; font-weight: bold; color: #003168;">
+                                <asp:Label runat="server" ID="Label6" Text="人員切換"></asp:Label></h5>
+                            <button type="button" class="close" data-dismiss="modal" style="position: absolute; right: 2%">
+                                <image src="image/popup_close.png"></image>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="padding: 0">
+                            <asp:UpdatePanel runat="server" ID="role_upl">
+                                <ContentTemplate>
+                                    <div id="Div12" runat="server" style="padding: 20px 60px;">
+                                        <div style="text-align: center; font-size: 22px; font-weight: bold;">
+                                            <div>
+                                                <table style="width: 100%;">
+                                                    <tr>
+                                                        <td style="display: flex;font-size:1.375rem;">選擇人員：</td>
+                                                        <td>
+                                                            <asp:DropDownList ID="apply_group" runat="server" CssClass="form-control" Style="width: 100%;margin-bottom:5px;" DataSourceID="sds_group" DataTextField="name" DataValueField="id" OnSelectedIndexChanged="apply_group_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                                            <asp:SqlDataSource ID="sds_group" runat="server" SelectCommand="select '0' as id, '全部' as name union select id,name from group_name where parent_id is null" ConnectionString="<%$ ConnectionStrings:eip %>"></asp:SqlDataSource>
+                                                            
+                                                            <asp:DropDownList ID="ddl_division" runat="server" CssClass="form-control" Style="width: 100%;margin-bottom:5px;" DataSourceID="sds_division" DataTextField="name" DataValueField="id" OnSelectedIndexChanged="ddl_division_SelectedIndexChanged" AutoPostBack="true">
+                                                                <asp:ListItem Value="0" Text="全部"></asp:ListItem>
+                                                            </asp:DropDownList>
+                                                            <asp:SqlDataSource ID="sds_division" runat="server" SelectCommand="" ConnectionString="<%$ ConnectionStrings:eip %>"></asp:SqlDataSource>
+
+                                                            <asp:DropDownList ID="ddl_applicant" runat="server" CssClass="form-control" Style="width: 100%" DataSourceID="sds_applicant" DataTextField="name" DataValueField="user_id">
+                                                            </asp:DropDownList>
+                                                            <asp:SqlDataSource ID="sds_applicant" runat="server" SelectCommand="select '0' as user_id, '全部' as name union select user_id,name from eip_user " ConnectionString="<%$ ConnectionStrings:eip %>"></asp:SqlDataSource>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                </table>                                                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>                           
+                            <div id="Div13" runat="server" class="mb-3" style="display: flex; justify-content: center;">
+                                <asp:Button ID="modal_btn_cancel" runat="server" CssClass="bt" Text="取消" Style="background-color: #777777" data-dismiss="modal" aria-label="Close" />
+                                <asp:Button ID="modal_btn_end" runat="server" CssClass="bt" Text="確定" OnClick="Change_role_comfirm" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%-- 切換使用者MODAL end--%>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server"></asp:ContentPlaceHolder>
+        </div>
+
+        <script type="text/javascript">
+
+</script>
+
+    </form>
+    <script>
+
+</script>
+
+</body>
+</html>

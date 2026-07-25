@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.addbt {/*自適應按鈕*/
+    max-width: 120px;
+    flex: 0 0 10%;
+
+    height: calc(3em + 3rem + 5px);
+
+    padding: 5px 3px;
+
+    text-align: center;
+    font-family: Microsoft YaHei UI;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    font-weight: bold;
+}
+.table {
+    line-height: 1.3;
+}
+@media screen and (max-width: 1400px){  
+    .sidebar-nav li a {
+        display: block;
+        color: #161616;
+        text-decoration: none;
+        padding: 16px 25px 16px 45px;
+    }
+    .sidebar-nav li {
+        background-position: 10px center;
+    }
+    :root {
+        --leftmenuwidth: 65px;
+        --rightcontentwidth: 210px;
+        --rightcontentml: -210px;
+    } 
+}
+@media screen and (max-width: 1200px){
+    :root {
+        --leftmenuwidth: 60px;
+        --rightcontentwidth: 170px;
+        --rightcontentml: -170px;
+        --writeBoxpadding: 20px;
+    }
+    #page-content-wrapper {
+        padding-top: 65px;
+    }
+    .container {
+        max-width: 92%;
+    }
+    .LOGO img {
+        height: 50px;
+    }
+    .sidebar-nav li a {
+        padding: 12px 25px 12px 40px;
+    }
+    .sidebar-nav li {
+        background-position: 10px center;
+    }
+    .sidebar-nav {
+        top: 85px;
+    }
+    .whiteHeader {
+        min-height: 54px;
+        padding: 10px 30px;
+    }
+    .write_Title {
+    padding: 12px 20px;
+    }
+    .whiteContent {
+        padding-top: 25px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
+    .form-control {
+        height: calc(1.5em + 0.75rem + 2px) !important;
+        padding: 0.125rem 0.25rem;
+    }
+    .table th, .table td {
+        padding: 0.15rem 0.2rem !important;
+        line-height: 1.3;
+    }
+}
+@media screen and (max-width: 1050px){
+
+}
+

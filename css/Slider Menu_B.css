@@ -1,0 +1,123 @@
+@charset "utf-8";
+/* CSS Document */
+
+#menu {
+  position: fixed;
+  background-color: #4d4d4d;
+  height: 100%;
+  z-index: 10;
+  width: 160px;
+  color: #bbb;
+  top: 0;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+#menu ul {
+  list-style: none;
+  margin-top: 0;
+  padding: 0
+}
+
+#menu ul li { border-bottom: 0 }
+
+#menu>ul>li>a { border-left: 4px solid #4d4d4d;	text-decoration:none; }
+
+#menu ul li a {
+  color: inherit;
+  font-size: 16px;
+  display: block;
+  padding: 8px 0 8px 10px;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+#menu ul a i {
+  margin-right: 10px;
+  font-size: 18px;
+  margin-top: 3px;
+  width: 20px;
+}
+
+#menu ul a i[class*='fa-caret'] { float: right; }
+
+#menu ul a:hover,
+#menu ul a.active {
+  background-color: #111;
+  border-left-color: #ffae96;
+  color: #ffae96;
+  text-decoration:none;
+}
+
+#menu ul a:hover i:first-child { 
+	color: #ffae96; 
+	text-decoration:none;
+}
+
+/* Submenu */
+
+#menu ul li a.active+ul { display: block }
+
+#menu ul li ul {
+  margin-top: 0;
+  display: none;
+}
+
+#menu ul li ul li { border-bottom: none; }
+
+#menu ul li ul li a { padding-left: 30px; }
+
+#menu ul li ul li a:hover { background-color: #1A1A1A; cursor:hand !important;}
+
+/* /Submenu */
+
+
+/* Cuando este a la Izq, para esconderlo posicionarlo a la Izq a -width */
+
+.left { left: -160px; }
+
+.show { left: 0; }
+
+#menu_Pic{
+	margin-top:20px;
+	background:url(Page_Style/menu_Pic.png) no-repeat center top;
+	width:26px;
+}
+#menu_Title{
+	text-align:center;
+	padding-top:35px;
+	font-size:18px;
+	color:#fff;
+}
+.menu_H1{
+	background:#ff5770;
+	color:#fff;
+	font-weight:bold;
+    padding: 10px 15px;
+    text-decoration: none;
+	display: block;
+	font-size: 18px;
+	cursor: default;
+}
+#showmenu {
+	background-color:#333333;
+	height:100%;
+	margin-left: 100%;
+	position: absolute;
+	top: 0;
+	padding: 6px 8px 7px 8px;
+	font-size: 1.3em;
+	/*color: #FFCC33;*/
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.ab{
+	padding-left:15px;
+}

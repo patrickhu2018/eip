@@ -1,0 +1,41 @@
+﻿th a, th a:hover {
+    color: #fff;
+}
+
+.CheckboxStyle label {
+    margin: 2.5px 0 !important;
+}
+
+.editTable td:nth-child(1) {
+    font-weight: bold;
+}
+
+.editTable td, .editTable th {
+    text-align: left;
+}
+
+.editTable input[type="file"] {
+    display: inline-block;
+}
+
+.editTable .Title_mult {
+    vertical-align: top;
+    position: relative;
+    top: 4px;
+}
+
+.fileTable th {
+    text-align: center;
+}
+
+.bt-cancel {
+    color: #fff;
+    background-color: #c7c7c7;
+    border: 1px solid #adadad;
+}
+
+    .bt-cancel:hover {
+        color: #fff;
+        background-color: #adadad;
+        border: 1px solid #929292;
+    }

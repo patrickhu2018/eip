@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*----小動畫----*/
+.floating_hotAirBalloon {
+    animation-name: floating_hotAirBalloon;
+    -webkit-animation-name: floating_hotAirBalloon;
+    animation-duration: 3s;
+    -webkit-animation-duration: 3s;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+@keyframes floating_hotAirBalloon {
+    0% {
+        transform: translateY(0%);
+    }
+
+    50% {
+        transform: translateY(8%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}
+@-webkit-keyframes floating_hotAirBalloon {
+    0% {
+        -webkit-transform: translateY(0%);
+    }
+
+    50% {
+        -webkit-transform: translateY(8%);
+    }
+
+    100% {
+        -webkit-transform: translateY(0%);
+    }
+}
+/*----小動畫----*/
