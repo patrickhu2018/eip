@@ -45,11 +45,11 @@ public partial class Repair_user_edit : System.Web.UI.Page
                 Literal1.Text = "編輯帳號";
                 if (link_li != null) link_li.Text += "<li>使用者設定</li>";
                 Submit.Visible = true;
-                group.Enabled = true;
-                username.Enabled = true;
-                ac.Enabled = true;
-                job.Enabled = true;
-                note.Enabled = true;
+                //group.Enabled = true;
+                //username.Enabled = true;
+                //ac.Enabled = true;
+                //job.Enabled = true;
+                //note.Enabled = true;
                 Cancel.Text = "取消";
                 showdata();
             }

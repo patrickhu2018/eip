@@ -100,8 +100,25 @@ public partial class login_Repair : System.Web.UI.Page
                                 Session["user_name"] = dr["name"].ToString();
                                 Session["user_group"] = dr["user_group"].ToString();
                                 Session["group_name"] = dr["group_name"].ToString();
-                                Session["user_job"] = dr["job"].ToString();
+                                Session["user_job"] = job;
                                 Session["login_t"] = DateTime.Now.ToString("yyyy/MM/dd HH:mm"); ;
+
+                                // ¦P¨BÂ¾¦ì 20260730
+                                using (SqlConnection cn2 = new SqlConnection(eip))
+                                {
+                                    string sql2 = @"Update eip_user set job = @job where user_id = @user_id";
+                                    using (SqlCommand cmd2 = new SqlCommand(sql2, cn2))
+                                    {
+                                        cmd2.Parameters.AddWithValue("@job", job);
+                                        cmd2.Parameters.AddWithValue("@user_id", dr["user_id"].ToString());
+                                        cn2.Open();
+                                        cmd2.ExecuteNonQuery();
+                                    }
+                                }
+
+
+
+
                                 //if (Session["user_right_id"].ToString() == "1")
                                 //{
                                 //    Response.Redirect("Repair_management_query.aspx");

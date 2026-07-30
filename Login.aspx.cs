@@ -23,6 +23,14 @@ public partial class Login : System.Web.UI.Page
 
     protected void login_btn_Click(object sender, EventArgs e)
     {
+        // 將 sender 轉型為 Button
+        Button cb = (Button)sender;
+
+        // 取得按鈕的 ID
+        string buttonId = cb.ID;  // login_item  login_repair  login_meet
+
+
+
         if (account_tb.Text != "")
         {
             using (SqlConnection cn = new SqlConnection(eip))
@@ -44,7 +52,16 @@ public partial class Login : System.Web.UI.Page
                 if (dr.Read())
                 {
                     Session["user_id"] = dr["user_id"].ToString();
-                    Session["user_right_id"] = dr["user_right_id"].ToString();
+
+                    //Session["user_right_id"] = dr["user_right_id"].ToString();
+
+                    if(buttonId == "login_item")
+                        Session["user_right_id"] = dr["specil_user_right_id"].ToString();
+                    else if(buttonId == "login_repair")
+                        Session["user_right_id"] = dr["repair_user_right_id"].ToString();
+                    else if(buttonId == "login_meet")
+                        Session["user_right_id"] = dr["metting_user_right_id"].ToString();
+
                     Session["metting_user_right_id"] = dr["metting_user_right_id"].ToString();
                     Session["specil_user_right_id"] = dr["specil_user_right_id"].ToString();
                     Session["repair_user_right_id"] = dr["repair_user_right_id"].ToString();
