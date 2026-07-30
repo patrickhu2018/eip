@@ -51,38 +51,123 @@
     </style>
     <script type="text/javascript">
 
+        var applyDateRangeMonths = 6;
+
+        function getApplyStartInput() {
+            return document.getElementById('<%= apply_start.ClientID %>');
+        }
+
+        function getApplyEndInput() {
+            return document.getElementById('<%= apply_end.ClientID %>');
+        }
+
+        function parseDateValue(value) {
+            if (!value) {
+                return null;
+            }
+
+            var parts = value.split("-");
+            if (parts.length !== 3) {
+                return null;
+            }
+
+            return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+        }
+
+        function formatDateValue(date) {
+            var year = date.getFullYear();
+            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+            var day = ("0" + date.getDate()).slice(-2);
+            return year + "-" + month + "-" + day;
+        }
+
+        function addMonthsClamped(date, months) {
+            var target = new Date(date.getFullYear(), date.getMonth() + months, 1);
+            var lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
+            target.setDate(Math.min(date.getDate(), lastDay));
+            return target;
+        }
+
+        function clearDateBounds(input) {
+            input.removeAttribute("min");
+            input.removeAttribute("max");
+        }
+
+        function setDateBounds(input, minValue, maxValue) {
+            input.setAttribute("min", minValue);
+            input.setAttribute("max", maxValue);
+        }
+
+        function isOutsideBounds(input) {
+            return input.value && ((input.min && input.value < input.min) || (input.max && input.value > input.max));
+        }
+
+        function setEndBoundsFromStart(startInput, endInput) {
+            var startDate = parseDateValue(startInput.value);
+            if (!startDate) {
+                return;
+            }
+
+            setDateBounds(endInput, startInput.value, formatDateValue(addMonthsClamped(startDate, applyDateRangeMonths)));
+        }
+
+        function setStartBoundsFromEnd(startInput, endInput) {
+            var endDate = parseDateValue(endInput.value);
+            if (!endDate) {
+                return;
+            }
+
+            setDateBounds(startInput, formatDateValue(addMonthsClamped(endDate, -applyDateRangeMonths)), endInput.value);
+        }
+
+        function syncApplyDateRange(changedField) {
+            var startInput = getApplyStartInput();
+            var endInput = getApplyEndInput();
+
+            clearDateBounds(startInput);
+            clearDateBounds(endInput);
+
+            if (changedField === "start") {
+                setEndBoundsFromStart(startInput, endInput);
+                if (isOutsideBounds(endInput)) {
+                    endInput.value = "";
+                }
+            }
+            else if (changedField === "end") {
+                setStartBoundsFromEnd(startInput, endInput);
+                if (isOutsideBounds(startInput)) {
+                    startInput.value = "";
+                }
+            }
+            else {
+                setEndBoundsFromStart(startInput, endInput);
+                if (isOutsideBounds(endInput)) {
+                    endInput.value = "";
+                }
+
+                setStartBoundsFromEnd(startInput, endInput);
+                if (isOutsideBounds(startInput)) {
+                    startInput.value = "";
+                }
+            }
+
+            clearDateBounds(startInput);
+            clearDateBounds(endInput);
+            setEndBoundsFromStart(startInput, endInput);
+            setStartBoundsFromEnd(startInput, endInput);
+        }
+
         function setEndDateRange() {
-            var startDate = document.getElementById('<%= apply_start.ClientID %>').value;
-            if (startDate) {
-                // 計算日期格式：年月日 (yyyy-mm-dd)
-                var startDateObj = new Date(startDate);
-                startDateObj.setMonth(startDateObj.getMonth() + 6);  // 計算六個月後的日期
-                // 格式化為 yyyy-mm-dd 格式
-                var year = startDateObj.getFullYear();
-                var month = ("0" + (startDateObj.getMonth() + 1)).slice(-2);  // 1-12月轉為兩位數
-                var day = ("0" + startDateObj.getDate()).slice(-2);  // 日期轉為兩位數
-                var newEndDate = year + "-" + month + "-" + day;  // 新的六個月後的日期
-
-                document.getElementById('<%= apply_end.ClientID %>').setAttribute('max', newEndDate);
-                document.getElementById('<%= apply_end.ClientID %>').setAttribute('min', startDate);
-            }
+            syncApplyDateRange("start");
         }
+
         function setStartDateRange() {
-            var startDate = document.getElementById('<%= apply_end.ClientID %>').value;
-
-            if (startDate) {
-                // 計算日期格式：年月日 (yyyy-mm-dd)
-                var startDateObj = new Date(startDate);
-                startDateObj.setMonth(startDateObj.getMonth() - 6);  // 計算六個月後的日期
-                // 格式化為 yyyy-mm-dd 格式
-                var year = startDateObj.getFullYear();
-                var month = ("0" + (startDateObj.getMonth() + 1)).slice(-2);
-                var day = ("0" + startDateObj.getDate()).slice(-2);
-                var newEndDate = year + "-" + month + "-" + day;
-                document.getElementById('<%= apply_start.ClientID %>').setAttribute('max', startDate);
-                document.getElementById('<%= apply_start.ClientID %>').setAttribute('min', newEndDate);
-            }
+            syncApplyDateRange("end");
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            syncApplyDateRange();
+        });
 </script>
     <div class="d-flex">
         <div class="write_Box" style="margin-right: 4rem; width: 100%">

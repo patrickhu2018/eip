@@ -33,9 +33,21 @@ public partial class Repair_addapply : System.Web.UI.Page
         Label masterLabel = (Label)master.FindControl("page_title");
         masterLabel.Text = "我的申請";
         Literal link_li = (Literal)master.FindControl("link_li");
+
+
+        if (Session["user_right_id"] == null)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "login_erro", "alert('登入逾時，請重新登入!');location.href='Login.aspx';", true);
+        }
+
+        //未知作用，在此程式中也沒其他地方引用，先註解掉避免登入逾時問題
+        //if (Session["repair_show_page"] == null)
+        //{
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "login_erro", "alert('登入逾時，請重新登入!');location.href='Login.aspx';", true);
+        //}
+
         if (!IsPostBack)
         {
-            if(Session["repair_user_right_id"] !=null) Session["user_right_id"] = Session["repair_user_right_id"].ToString();
 
             if (link_li != null) link_li.Text += "<li>我的申請</li>";
             apply_date.Text = DateTime.Today.ToString("yyyy-MM-dd");
@@ -55,7 +67,6 @@ public partial class Repair_addapply : System.Web.UI.Page
             }
             else if (m == "1")
             {
-               
                 masterLabel.Text = "申請審核";
                 rb1.Enabled = false;
                 rb2.Enabled = false;
@@ -64,7 +75,8 @@ public partial class Repair_addapply : System.Web.UI.Page
                 reason.Enabled = false;
                 if (state == "1" || state == "2")
                 {
-                    if (Session["user_right_id"].ToString() != "1" && Session["repair_show_page"].ToString()!="3")
+
+                    if (Session["user_right_id"].ToString() != "1")
                     {
                         Submit.Visible = false;
                         Cancel.Text = "返回";
@@ -117,10 +129,10 @@ public partial class Repair_addapply : System.Web.UI.Page
                     location.Enabled = false;
                     reason.Enabled = false;
                     Finish_date.Enabled = false;
-                    if (Session["user_right_id"].ToString() != "1" && Session["repair_show_page"].ToString() != "3")
+                    if (Session["user_right_id"].ToString() != "1")
                     {
                         statechange.Enabled = false;
-                       
+                        
                     }
                     else { statechange.Enabled = true; save.Visible = true; }
                     save.Visible = false;
@@ -141,16 +153,12 @@ public partial class Repair_addapply : System.Web.UI.Page
 
                 statechange.Visible = true;
 
-                if (Session["user_right_id"].ToString() != "1" && Session["repair_show_page"].ToString() != "3")
+                if (Session["user_right_id"].ToString() != "1")
                 {
                     statechange.Visible = false;
                     TempSave.Visible = false;
                 }
-                ////0731新增
-                //if (Session["repair_show_page"] != null && Session["repair_show_page"].ToString() == "3")
-                //{
-                //    statechange.Enabled = true;
-                //}
+
 
 
                 showdata();
