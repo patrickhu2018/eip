@@ -378,10 +378,21 @@ public partial class Meetingroom_user_edit : System.Web.UI.Page
             using (SqlConnection cn = new SqlConnection(eip))
             {
                 cn.Open();
-                string sql = @"update [eip_user] set [user_group]=@user_group,[name]=@name,[sn]=@sn,[job]=@job,[note]=@note,[user_right_id]=@user_right_id ,
+                string sql = @"update [eip_user] set [user_group]=@user_group,[name]=@name,[sn]=@sn,[job]=@job,[note]=@note,[user_right_id]=@user_right_id ,[metting_user_right_id]=@metting_user_right_id,
                                 meeting_show_page=@meeting_show_page,LeaveDate=@LeaveDate,JobChageDate=@JobChageDate,
                                 TransferToGroup_id=@TransferToGroup_id,TransferToUser_id=@TransferToUser_id,LastUpdateTime=@LastUpdateTime
                                 where user_id=@user_id";
+
+                //更新後註解 20260731 by blue
+                //增加metting_user_right_id的寫入，因為其會被讀入session["user_right_id"]
+                //在特定頁會讀session["user_right_id"]，如變更會議類型要由系統管理員，系統管理員為1 (3也可以但未知是哪種先不設定)
+                //DB內的user_right_id只是代表該使用者屬於哪個身分，身分設定內的更改會影響到所有同身分的人
+                //DB內的meeting_show_page只是代表使用者的"權限狀態"，只影響顯示的Menu有哪些，對其他頁面功能，包含登入首頁是哪，沒有任何影響
+
+                
+
+                int metting_user_right_id = 0;
+
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 {
                     cmd.Parameters.AddWithValue("@user_group", group.SelectedValue);
@@ -390,7 +401,10 @@ public partial class Meetingroom_user_edit : System.Web.UI.Page
                     cmd.Parameters.AddWithValue("@job", job.Text);
                     cmd.Parameters.AddWithValue("@note", note.Text);
                     if (RightSetting1.Checked)
+                    {
                         cmd.Parameters.AddWithValue("@meeting_show_page", "1");
+                        metting_user_right_id = 1;
+                    }
                     else if (RightSetting2.Checked)
                         cmd.Parameters.AddWithValue("@meeting_show_page", "2");
                     else if (RightSetting3.Checked)
@@ -407,6 +421,9 @@ public partial class Meetingroom_user_edit : System.Web.UI.Page
                         cmd.Parameters.AddWithValue("@meeting_show_page", "8");
                     else if (RightSetting0.Checked)
                         cmd.Parameters.AddWithValue("@meeting_show_page", "0");
+
+                    cmd.Parameters.AddWithValue("@metting_user_right_id", metting_user_right_id);
+
 
                     if (JobSetting1.Checked)
                         cmd.Parameters.AddWithValue("@user_right_id", "3");
