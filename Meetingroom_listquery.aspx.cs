@@ -59,7 +59,7 @@ public partial class Meetingroom_listquery : System.Web.UI.Page
             ViewState["SortDirection"] = "DESC";
             if (link_li != null) link_li.Text += "<li>清單檢視</li>";
             
-            if (Session["user_right_id"].ToString() != "1" && Session["user_right_id"].ToString() != "3")
+            if (Session["user_right_id"].ToString() != "1" && Session["user_right_id"].ToString() != "2" && Session["user_right_id"].ToString() != "3")
             {
 
                 //export.Visible = false;
@@ -789,7 +789,7 @@ public partial class Meetingroom_listquery : System.Web.UI.Page
             ///////////////////////////////
             Label use_start = (Label)e.Row.FindControl("use_start");
             Label use_end = (Label)e.Row.FindControl("use_end");
-            if (Session["user_right_id"] != null && Session["user_right_id"].ToString() != "1" && Session["user_right_id"].ToString() != "3")
+            if (Session["user_right_id"] != null && Session["user_right_id"].ToString() != "1" && Session["user_right_id"].ToString() != "2" && Session["user_right_id"].ToString() != "3")
             {
                 // 顯示 "功能" 欄位
                 gv.Columns[11].Visible = false; // 最後一個欄位為功能欄位

@@ -77,7 +77,7 @@ public partial class login_Meetingroom : System.Web.UI.Page
                         cn.Open();
                         string sql = @"select user_id,t1.name,metting_user_right_id,user_group,t2.name as group_name,t1.job,HomePage from [eip_user] as t1
                                       left join group_name as t2 on t2.id=t1.user_group
-                     		      left join meeting_UserRightSetting on t1.user_right_id = meeting_UserRightSetting.user_right_id
+                     		      left join meeting_UserRightSetting on t1.metting_user_right_id = meeting_UserRightSetting.user_right_id
                                    where t1.sn=@sn and user_group like @user_group order by user_id desc";
 								   
                         //where  user_group=@user_group and t1.name=@name
@@ -182,7 +182,7 @@ public partial class login_Meetingroom : System.Web.UI.Page
                         cn.Open();
                         string sql = @"select user_id,t1.name,metting_user_right_id,user_group,t2.name as group_name,t1.job,HomePage from [eip_user] as t1
                                       left join group_name as t2 on t2.id=t1.user_group
-                     		      left join meeting_UserRightSetting on t1.user_right_id = meeting_UserRightSetting.user_right_id
+                     		      left join meeting_UserRightSetting on t1.metting_user_right_id = meeting_UserRightSetting.user_right_id
                                    where t1.sn=@sn and user_group like @user_group order by user_id desc";
 								   
                         //where  user_group=@user_group and t1.name=@name

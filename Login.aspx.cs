@@ -41,9 +41,9 @@ public partial class Login : System.Web.UI.Page
                                             item_UserRightSetting.HomePage as item_Homepage,specil_show_page
                                              from [eip_user]  as t1
                                               left join group_name as t2 on t2.id=t1.user_group
-                                              left join meeting_UserRightSetting on meeting_UserRightSetting.user_right_id = t1.user_right_id
-                                              left join repair_UserRightSetting on repair_UserRightSetting.user_right_id = t1.user_right_id
-                                              left join item_UserRightSetting on item_UserRightSetting.user_right_id = t1.user_right_id
+                                              left join meeting_UserRightSetting on meeting_UserRightSetting.user_right_id = t1.metting_user_right_id
+                                              left join repair_UserRightSetting on repair_UserRightSetting.user_right_id = t1.repair_user_right_id
+                                              left join item_UserRightSetting on item_UserRightSetting.user_right_id = t1.specil_user_right_id
                                               where [account]=@account "; /*and state = 1*/
                 SqlCommand cmd = new SqlCommand(sql_matchpeeID, cn);
                 cmd.Parameters.AddWithValue("@account", account_tb.Text);
@@ -56,11 +56,11 @@ public partial class Login : System.Web.UI.Page
                     //Session["user_right_id"] = dr["user_right_id"].ToString();
 
                     if(buttonId == "login_item")
-                        Session["user_right_id"] = dr["specil_user_right_id"].ToString();
+                        Session["user_right_id"] = dr["specil_show_page"].ToString();
                     else if(buttonId == "login_repair")
-                        Session["user_right_id"] = dr["repair_user_right_id"].ToString();
+                        Session["user_right_id"] = dr["repair_show_page"].ToString();
                     else if(buttonId == "login_meet")
-                        Session["user_right_id"] = dr["metting_user_right_id"].ToString();
+                        Session["user_right_id"] = dr["meeting_show_page"].ToString();
 
                     Session["metting_user_right_id"] = dr["metting_user_right_id"].ToString();
                     Session["specil_user_right_id"] = dr["specil_user_right_id"].ToString();

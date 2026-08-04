@@ -31,7 +31,7 @@ public partial class Meetingroom_management : System.Web.UI.Page
         if (!IsPostBack)
         {
             if (link_li != null) link_li.Text += "<li>會議室設備詳情</li>";
-            if (Session["user_right_id"] != null && Session["user_right_id"].ToString() != "1" && Session["user_right_id"].ToString() != "3")
+            if (Session["user_right_id"] != null && Session["user_right_id"].ToString() != "1" && Session["user_right_id"].ToString() != "2" && Session["user_right_id"].ToString() != "3")
             {
                 add.Visible = false;
             }
@@ -500,7 +500,7 @@ public partial class Meetingroom_management : System.Web.UI.Page
             }
 
             // 根據權限設置 "功能" 欄位的顯示
-            if (Session["user_right_id"] != null && Session["user_right_id"].ToString() != "1" && Session["user_right_id"].ToString() != "3")
+            if (Session["user_right_id"] != null && Session["user_right_id"].ToString() != "1" && Session["user_right_id"].ToString() != "2" && Session["user_right_id"].ToString() != "3")
             {
                 // 隱藏功能欄位
                 gv.Columns[7].Visible = false; // 最後一個欄位為功能欄位
