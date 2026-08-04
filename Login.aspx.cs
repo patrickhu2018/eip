@@ -130,7 +130,6 @@ public partial class Login : System.Web.UI.Page
                         Response.Redirect("systemBusy.aspx");
                     break;
                 case "login_meet":
-                    Session["user_right_id"] = Session["metting_user_right_id"].ToString();
                     DateTime today = DateTime.Today;
                     DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                     DateTime firstSundayOfMonth = firstDayOfMonth;
